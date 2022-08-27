@@ -1,0 +1,36 @@
+name: 'Setup AliCloud Workspace'
+description: 'Setup a out-of-the-box workspace with ACR and ACK for AliCloud'
+inputs:
+  acr-registry:
+    description: "acr registry to login"
+    required: true
+  acr-username:
+    description: "acr username to login"
+    required: true
+  acr-password:
+    description: "acr password to login"
+    required: true
+  ack-cluster-id:
+    description: "ACK cluster id to login"
+    required: true
+  ack-access-key-id:
+    description: "access key id to login ACK"
+    required: true
+  ack-access-key-secret:
+    description: "access key secret to login ACK"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Login to ACR Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ inputs.acr-registry }}
+        username: ${{ inputs.acr-username }}
+        password: ${{ inputs.acr-password }}
+    - name: Set up kubeconfig for ACK cluster
+      uses: aliyun/ack-set-context@v1
+      with:
+        access-key-id: ${{ inputs.ack-access-key-id }}
+        access-key-secret: ${{ inputs.ack-access-key-secret }}
+        cluster-id: ${{ inputs.ack-cluster-id }}
