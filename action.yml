@@ -1,4 +1,8 @@
 name: 'Setup AliCloud Workspace'
+author: "@spencercjh"
+branding:
+  icon: cloud
+  color: orange
 description: 'Setup a out-of-the-box workspace with ACR and ACK for AliCloud'
 inputs:
   acr-registry:
